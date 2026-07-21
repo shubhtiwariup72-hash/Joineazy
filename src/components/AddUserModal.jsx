@@ -1,6 +1,7 @@
 import React from 'react';
 import '../pages/Home.css';
-const AddUserModal = ({closeAddUser, handleSubmitUser, handleInputChange, userInput}) => {
+import VSInput from './VSInput';
+const AddUserModal = ({ closeAddUser, handleSubmitUser, handleInputChange, userInput }) => {
     return (
         <div
             className="home__modal-overlay"
@@ -27,60 +28,11 @@ const AddUserModal = ({closeAddUser, handleSubmitUser, handleInputChange, userIn
                 </div>
 
                 <form className="home__form" onSubmit={handleSubmitUser}>
-                    <label className="home__field">
-                        <span>Name</span>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Full name"
-                            value={userInput.name}
-                            onChange={handleInputChange}
-                            autoFocus
-                            required
-                        />
-                    </label>
-                    <label className="home__field">
-                        <span>Age</span>
-                        <input
-                            type="number"
-                            name="age"
-                            placeholder="Age"
-                            value={userInput.age}
-                            onChange={handleInputChange}
-                            min="1"
-                        />
-                    </label>
-                    <label className="home__field">
-                        <span>Address</span>
-                        <input
-                            type="text"
-                            name="address"
-                            placeholder="City, country"
-                            value={userInput.address}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label className="home__field">
-                        <span>Email</span>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="name@example.com"
-                            value={userInput.email}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label className="home__field">
-                        <span>Phone</span>
-                        <input
-                            type="tel"
-                            name="phone"
-                            placeholder="Phone number"
-                            value={userInput.phone}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-
+                    <VSInput value={userInput.name} onChange={handleInputChange} title="Name" name="name" type="text" placeholder="Enter your name" />
+                    <VSInput value={userInput.age} onChange={handleInputChange} title="Age" name="age" type="number" placeholder="Age" />
+                    <VSInput value={userInput.address} onChange={handleInputChange} title="Address" name="address" type="text" placeholder="City, country" />
+                    <VSInput value={userInput.email} onChange={handleInputChange} title="Email" name="email" type="email" placeholder="name@example.com" />
+                    <VSInput value={userInput.phone} onChange={handleInputChange} title="Phone" name="phone" type="tel" placeholder="Phone number" />
                     <div className="home__form-actions">
                         <button type="button" className="home__btn home__btn--ghost" onClick={closeAddUser}>
                             Cancel
