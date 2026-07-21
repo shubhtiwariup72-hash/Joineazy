@@ -8,7 +8,7 @@ import VSButton from '../components/Button';
 import TimerComponent from '../components/TimerComponent';
 
 const Home = (props) => {
-  const { title, description } = props.homePageData;
+  const { title, description, button } = props.homePageData;
 
   const { count, increment, decrement } = useCounter(0);
 
@@ -95,7 +95,7 @@ const Home = (props) => {
           <p className="home__eyebrow">Portfolio</p>
           <h1 className="home__title">{title}</h1>
           <p className="home__desc">{description}</p>
-          <VSButton title={"About Me"} />
+          <VSButton title={button} />
         </header>
 
         <div className="home__panel">

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { APIcalls } from "./apiCalls";
 
 const useAPI = () => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({ posts: [], todos: [] });
     const [isLoading, setLoading] = useState({ posts: false, todos: false })
 
     const getData = async (key, url) => {

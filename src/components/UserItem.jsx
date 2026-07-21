@@ -29,7 +29,7 @@ const UserItem = ({ item, index, deleteData }) => {
                 onClick={() => deleteData(item.id)}
                 aria-label={`Delete`}
             >
-                Delete
+                Call Todo API
             </button>
         </article>
     )
