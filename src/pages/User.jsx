@@ -6,10 +6,10 @@ import Loader from '../components/Loader'
 import useAPI from '../API/useAPI'
 
 const User = () => {
-    const { data, isLoading, getData, deleteData } = useAPI()
+    const { data, isLoading, getData, deleteData } = useAPI();
     useEffect(() => {
-        getData("https://jsonplaceholder.typicode.com/posts");
-        getData("https://jsonplaceholder.typicode.com/todos/");
+        getData("posts", "https://jsonplaceholder.typicode.com/posts");
+        getData("todos", "https://jsonplaceholder.typicode.com/todos/");
     }, [])
 
     const handleDelete = (id) => {
@@ -23,7 +23,7 @@ const User = () => {
             <div className='about-container' style={{ maxHeight: '80vh', overflowY: 'scroll' }}>
                 <h1>User Data</h1>
                 {
-                    isLoading ? <Loader /> : data.map((item, index) => {
+                    isLoading?.posts ? <Loader /> : data?.posts?.map((item, index) => {
                         return <UserItem item={item} index={index} deleteData={handleDelete} />
                     })
                 }

@@ -3,13 +3,13 @@ import { APIcalls } from "./apiCalls";
 
 const useAPI = () => {
     const [data, setData] = useState([]);
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState({ posts: false, todos: false })
 
-    const getData = async (url) => {
-        setLoading(true)
+    const getData = async (key, url) => {
+        setLoading((prev) => ({ ...prev, key: true }))
         const res = await APIcalls(url);
-        setData(res)
-        setLoading(false)
+        setLoading((prev) => ({ ...prev, key: false }))
+        setData((prev) => ({ ...prev, [key]: res }))
     }
 
     const postData = async (url, body) => {
