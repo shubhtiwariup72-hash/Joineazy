@@ -1,30 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
-import Home from './pages/Home';
-import Header from './components/Header';
-import About from './pages/About';
-import { aboutMe, contactMeData, homePageData, navData } from './utils';
-import Contact from './pages/Contact';
-import { useEffect, useState } from 'react';
-import User from './pages/User';
+import React, { useState } from 'react';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { AssignmentProvider } from './context/AssignmentContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
+import { Layout } from './components/layout/Layout';
+import { LoginPage } from './pages/Login/LoginPage';
+import { StudentDashboard } from './pages/StudentDashboard/StudentDashboard';
+import { AdminDashboard } from './pages/AdminDashboard/AdminDashboard';
 
-function App() {
-  const [isLoading, setLoading] = useState(true);
+function AppContent() {
+  const { currentUser, isAdmin } = useAuth();
+  const [activeTab, setActiveTab] = useState('assignments');
+  const [isAdminCreateOpen, setIsAdminCreateOpen] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000);
-  }, [])
+  if (!currentUser) {
+    return <LoginPage />;
+  }
 
   return (
-    <div className="App">
-      <Header navData={navData} />
-      <Home homePageData={homePageData} />
-      <About aboutMe={aboutMe} />
-      <User />
-      <Contact data={contactMeData} isLoading={isLoading} />
-    </div>
+    <Layout
+      activeTab={activeTab}
+      onSelectTab={(tab) => setActiveTab(tab)}
+      onCreateAssignment={isAdmin ? () => setIsAdminCreateOpen(true) : undefined}
+    >
+      {isAdmin ? (
+        <AdminDashboard
+          activeTab={activeTab}
+          isCreateModalOpen={isAdminCreateOpen}
+          setIsCreateModalOpen={setIsAdminCreateOpen}
+        />
+      ) : (
+        <StudentDashboard activeTab={activeTab} />
+      )}
+    </Layout>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AssignmentProvider>
+            <AppContent />
+          </AssignmentProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
 
